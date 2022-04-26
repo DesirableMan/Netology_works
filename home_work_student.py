@@ -1,5 +1,7 @@
 from random import randint
 
+
+
 class Student:
     def __init__(self, name, surname):
         self.name = name
@@ -34,7 +36,7 @@ class Student:
             else:
                 lecturer.grades[course] = [grade]
         else:
-            return 'Ошибка'
+            raise Exception('Ошибка')
 
     def get_average_grade(self):
         grades_list = []
@@ -45,13 +47,11 @@ class Student:
             return f"Средняя оценка за домашние задания: {self.average_grade}"
 
     def __eq__(self, other):
-        average = self.verify_average(other)
-        return self.average_grade == average
+        return self.average_grade == self.verify_average(other)
 
 
     def __lt__(self, other):
-        average = self.verify_average(other)
-        return self.average_grade < average
+        return self.average_grade < self.verify_average(other)
 
 
 
@@ -90,13 +90,12 @@ class Lecturer(Mentor):
 
 
     def __eq__(self, other):
-        average = self.verify_average(other)
-        return self.average_grade == average
+        return self.average_grade == self.verify_average(other)
+
 
 
     def __lt__(self, other):
-        average = self.verify_average(other)
-        return self.average_grade < average
+        return self.average_grade < self.verify_average(other)
 
 
 class Reviewer(Mentor):
@@ -110,7 +109,7 @@ class Reviewer(Mentor):
             else:
                 student.grades[course] = [grade]
         else:
-            return 'Ошибка'
+            raise Exception('Ошибка')
 
 
 
@@ -178,8 +177,6 @@ print(lecturer1.__dict__)
 print(lecturer1)
 print()
 
-student1.rate_lecturer(lecturer2, 'SQL', 8)
-student1.rate_lecturer(lecturer2, 'Java', 8)
 student2.rate_lecturer(lecturer2, 'SQL', 10)
 student2.rate_lecturer(lecturer2, 'Java', 9)
 print(lecturer2.grades)
